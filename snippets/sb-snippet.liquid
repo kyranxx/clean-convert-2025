@@ -1,0 +1,6 @@
+{% capture sb %}{% render 'Secomapp-Amp' %}{% endcapture %}{% unless sb contains 'Liquid error' %}{% render 'Secomapp-Amp' %}{% endunless %}
+{% capture sb %}{% render 'Secomapp-Description' %}{% endcapture %}{% unless sb contains 'Liquid error' %}{% render 'Secomapp-Description' %}{% endunless %}
+
+{% capture sb %}{% render 'Secomapp-Title' %}{% endcapture %}{% unless sb contains 'Liquid error' %}{% render 'Secomapp-Title' %}{% endunless %}
+
+{% capture js %}{% render 'sb-json' %}{% endcapture %}{% unless js contains 'Liquid error' %}{% render 'sb-json' %}{% endunless %}

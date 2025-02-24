@@ -1,0 +1,293 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "subtitle": {
+          "type": "text",
+          "settings": {
+            "text": "{{ product.metafields.descriptors.subtitle.value }}",
+            "text_style": "body"
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button"
+          }
+        },
+        "quantity_selector": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": false
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {}
+        },
+        "judgeme_preview_badge_product_page_eca1c457": {
+          "type": "shopify://apps/judge-me-product-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "title",
+        "subtitle",
+        "price",
+        "judgeme_preview_badge_product_page_eca1c457",
+        "variant_picker",
+        "quantity_selector",
+        "buy_buttons",
+        "description"
+      ],
+      "settings": {
+        "enable_sticky_info": true,
+        "gallery_layout": "thumbnail",
+        "media_size": "small",
+        "mobile_thumbnails": "show",
+        "hide_variants": false,
+        "enable_video_looping": false,
+        "padding_top": 20,
+        "padding_bottom": 12
+      }
+    },
+    "collapsible-content": {
+      "type": "collapsible-content",
+      "blocks": {
+        "row-0": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Sú náramky vyrábané ručne?",
+            "icon": "heart",
+            "row_content": "<p>Áno, všetky naše náramky sú tzn. hand-made, čo znamená, že sme na každý jeden osobne dohliadli aby ste sa mohli tešiť z kvalitného výrobku.<br/></p>",
+            "page": ""
+          }
+        },
+        "row-1": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Môžem sa s náramkom kúpať?",
+            "icon": "washing",
+            "row_content": "<p>Neodporúčame to. Hoci sú náramky vyrobené z pevných materiálov, časté vystavenie vode môže spôsobiť zmenu farby alebo tvaru.<br/></p>",
+            "page": ""
+          }
+        },
+        "row-2": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Robíte aj opravy náramkov?",
+            "icon": "recycle",
+            "row_content": "<p>Áno, poskytujeme aj služby opráv poškodených náramkov. K tejto službe pristupujeme individuálne po našej dohode cez email.<br/></p>",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "row-0",
+        "row-1",
+        "row-2"
+      ],
+      "settings": {
+        "caption": "Informácie",
+        "heading": "Ďalšie informácie o náramkoch",
+        "heading_size": "h2",
+        "heading_alignment": "center",
+        "layout": "row",
+        "color_scheme": "background-1",
+        "container_color_scheme": "background-1",
+        "open_first_collapsible_row": true,
+        "image_ratio": "adapt",
+        "desktop_layout": "image_second",
+        "padding_top": 32,
+        "padding_bottom": 32
+      }
+    },
+    "0bc552dc-c963-4f0e-9c9d-3a68bc541ebc": {
+      "type": "featured-product",
+      "disabled": true,
+      "blocks": {
+        "template--15357353164939__0bc552dc-c963-4f0e-9c9d-3a68bc541ebc-16760569437f19d0f7-0": {
+          "type": "text",
+          "settings": {
+            "text": "{{ section.settings.product.vendor }}",
+            "text_style": "uppercase"
+          }
+        },
+        "template--15357353164939__0bc552dc-c963-4f0e-9c9d-3a68bc541ebc-16760569437f19d0f7-1": {
+          "type": "title",
+          "settings": {
+            "heading_size": "h1"
+          }
+        },
+        "template--15357353164939__0bc552dc-c963-4f0e-9c9d-3a68bc541ebc-16760569437f19d0f7-2": {
+          "type": "text",
+          "settings": {
+            "text": "{{ section.settings.product.metafields.descriptors.subtitle.value }}",
+            "text_style": "subtitle"
+          }
+        },
+        "template--15357353164939__0bc552dc-c963-4f0e-9c9d-3a68bc541ebc-16760569437f19d0f7-3": {
+          "type": "price",
+          "settings": {}
+        },
+        "template--15357353164939__0bc552dc-c963-4f0e-9c9d-3a68bc541ebc-16760569437f19d0f7-4": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button"
+          }
+        },
+        "template--15357353164939__0bc552dc-c963-4f0e-9c9d-3a68bc541ebc-16760569437f19d0f7-5": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "template--15357353164939__0bc552dc-c963-4f0e-9c9d-3a68bc541ebc-16760569437f19d0f7-6": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": false
+          }
+        }
+      },
+      "block_order": [
+        "template--15357353164939__0bc552dc-c963-4f0e-9c9d-3a68bc541ebc-16760569437f19d0f7-0",
+        "template--15357353164939__0bc552dc-c963-4f0e-9c9d-3a68bc541ebc-16760569437f19d0f7-1",
+        "template--15357353164939__0bc552dc-c963-4f0e-9c9d-3a68bc541ebc-16760569437f19d0f7-2",
+        "template--15357353164939__0bc552dc-c963-4f0e-9c9d-3a68bc541ebc-16760569437f19d0f7-3",
+        "template--15357353164939__0bc552dc-c963-4f0e-9c9d-3a68bc541ebc-16760569437f19d0f7-4",
+        "template--15357353164939__0bc552dc-c963-4f0e-9c9d-3a68bc541ebc-16760569437f19d0f7-5",
+        "template--15357353164939__0bc552dc-c963-4f0e-9c9d-3a68bc541ebc-16760569437f19d0f7-6"
+      ],
+      "settings": {
+        "product": "pletene-naramky-pre-pary-so-srdieckom-cervene",
+        "color_scheme": "accent-2",
+        "secondary_background": false,
+        "hide_variants": false,
+        "enable_video_looping": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "166335353789c7d383": {
+      "type": "apps",
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "product-recommendations": {
+      "type": "product-recommendations",
+      "settings": {
+        "heading": "Podobné produkty",
+        "heading_size": "h2",
+        "products_to_show": 8,
+        "columns_desktop": 4,
+        "color_scheme": "background-1",
+        "image_ratio": "square",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "columns_mobile": "2",
+        "padding_top": 32,
+        "padding_bottom": 32
+      }
+    },
+    "70715978-7cf5-4754-bb6c-634e880526b8": {
+      "type": "collection-list",
+      "blocks": {
+        "template--15357353164939__70715978-7cf5-4754-bb6c-634e880526b8-1676040783f3bd91c2-0": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "mdz-2023-medzinarodny-den-zien"
+          }
+        },
+        "template--15357353164939__70715978-7cf5-4754-bb6c-634e880526b8-1676040783f3bd91c2-1": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "pre-pary"
+          }
+        },
+        "template--15357353164939__70715978-7cf5-4754-bb6c-634e880526b8-1676040783f3bd91c2-2": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "naramky-proti-urieknutiu-a-snurkove-naramky"
+          }
+        },
+        "3de0483d-4f78-4981-8ce9-ce08fd6ad0ac": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "koralkove-a-shamballa-naramky-z-mineralov"
+          }
+        },
+        "19d37b8a-6e62-447a-896d-3de3d1628502": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "pre-babatka"
+          }
+        }
+      },
+      "block_order": [
+        "template--15357353164939__70715978-7cf5-4754-bb6c-634e880526b8-1676040783f3bd91c2-0",
+        "template--15357353164939__70715978-7cf5-4754-bb6c-634e880526b8-1676040783f3bd91c2-1",
+        "template--15357353164939__70715978-7cf5-4754-bb6c-634e880526b8-1676040783f3bd91c2-2",
+        "3de0483d-4f78-4981-8ce9-ce08fd6ad0ac",
+        "19d37b8a-6e62-447a-896d-3de3d1628502"
+      ],
+      "settings": {
+        "title": "Ďalšie kolekcie",
+        "heading_size": "h2",
+        "image_ratio": "square",
+        "columns_desktop": 5,
+        "color_scheme": "background-1",
+        "show_view_all": false,
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "judgeme_section_review_widget_5194": {
+      "type": "apps",
+      "blocks": {
+        "judgeme_review_widget_c1c32d84": {
+          "type": "shopify://apps/judge-me-product-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "judgeme_review_widget_c1c32d84"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    }
+  },
+  "order": [
+    "main",
+    "judgeme_section_review_widget_5194",
+    "collapsible-content",
+    "0bc552dc-c963-4f0e-9c9d-3a68bc541ebc",
+    "166335353789c7d383",
+    "product-recommendations",
+    "70715978-7cf5-4754-bb6c-634e880526b8"
+  ]
+}

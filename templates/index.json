@@ -1,0 +1,410 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "1663081673cb4eb233": {
+      "type": "custom-liquid",
+      "disabled": true,
+      "settings": {
+        "custom_liquid": "",
+        "color_scheme": "background-1",
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "dbe69dfa-53ff-440e-a88e-9b7d2acc32f5": {
+      "type": "image-banner",
+      "settings": {
+        "image": "shopify://shop_images/s_laskou_od_DIARA_74559847-b5a2-4025-b1b2-4522f3495760.png",
+        "image_overlay_opacity": 0,
+        "image_height": "medium",
+        "adapt_height_first_image": true,
+        "desktop_content_position": "middle-center",
+        "show_text_box": false,
+        "desktop_content_alignment": "center",
+        "color_scheme": "background-1",
+        "mobile_content_alignment": "center",
+        "stack_images_on_mobile": true,
+        "show_text_below": false
+      }
+    },
+    "16630880178a88a5a4": {
+      "type": "slideshow",
+      "blocks": {
+        "aba12c56-de1a-45e6-8160-c9b0ec42f471": {
+          "type": "slide",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/Valentin_1.png",
+            "heading": "",
+            "heading_size": "h0",
+            "subheading": "",
+            "button_label": "",
+            "link": "shopify://collections/mdz-2023-medzinarodny-den-zien",
+            "button_style_secondary": false,
+            "box_align": "top-left",
+            "show_text_box": false,
+            "text_alignment": "center",
+            "image_overlay_opacity": 0,
+            "color_scheme": "background-1",
+            "text_alignment_mobile": "center"
+          }
+        },
+        "166308801736727667-1": {
+          "type": "slide",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/close-up-portrait-dreaming-long-haired-girl-pink-sunglasses-with-red-lips-posing-with-hand-waving-blissful-young-lady-with-curly-hair-standing-with-eyes-closed-remembered-something-pl.jpg",
+            "heading": "Krásne korálkové náramky",
+            "heading_size": "h1",
+            "subheading": "",
+            "button_label": "Zobraziť všetko",
+            "link": "shopify://collections/koralkove-a-shamballa-naramky-z-mineralov",
+            "button_style_secondary": true,
+            "box_align": "bottom-center",
+            "show_text_box": false,
+            "text_alignment": "center",
+            "image_overlay_opacity": 30,
+            "color_scheme": "background-1",
+            "text_alignment_mobile": "center"
+          }
+        },
+        "6ef109f4-c3d0-4756-8151-4d3780916141": {
+          "type": "slide",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/closeup-portrait-smiling-male-confidently-holding-his-collar-isolated-white-wall.jpg",
+            "heading": "Pánske náramky",
+            "heading_size": "h0",
+            "subheading": "",
+            "button_label": "Zobraziť všetko",
+            "link": "",
+            "button_style_secondary": true,
+            "box_align": "bottom-center",
+            "show_text_box": false,
+            "text_alignment": "center",
+            "image_overlay_opacity": 20,
+            "color_scheme": "background-1",
+            "text_alignment_mobile": "center"
+          }
+        },
+        "b933edf2-c900-4b82-8aaa-a018415a441a": {
+          "type": "slide",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/SK_2_1_obdlznik2.png",
+            "heading": "",
+            "heading_size": "h1",
+            "subheading": "",
+            "button_label": "",
+            "link": "",
+            "button_style_secondary": false,
+            "box_align": "top-center",
+            "show_text_box": false,
+            "text_alignment": "center",
+            "image_overlay_opacity": 0,
+            "color_scheme": "background-1",
+            "text_alignment_mobile": "center"
+          }
+        },
+        "18be69e7-59fc-4575-ab4d-2541fa60c75c": {
+          "type": "slide",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/CZ_Detske_svietiace_obdlznik2.png",
+            "heading": "",
+            "heading_size": "h1",
+            "subheading": "",
+            "button_label": "",
+            "link": "",
+            "button_style_secondary": false,
+            "box_align": "middle-center",
+            "show_text_box": false,
+            "text_alignment": "center",
+            "image_overlay_opacity": 0,
+            "color_scheme": "background-1",
+            "text_alignment_mobile": "center"
+          }
+        }
+      },
+      "block_order": [
+        "aba12c56-de1a-45e6-8160-c9b0ec42f471",
+        "166308801736727667-1",
+        "6ef109f4-c3d0-4756-8151-4d3780916141",
+        "b933edf2-c900-4b82-8aaa-a018415a441a",
+        "18be69e7-59fc-4575-ab4d-2541fa60c75c"
+      ],
+      "settings": {
+        "layout": "full_bleed",
+        "slide_height": "large",
+        "slider_visual": "dots",
+        "auto_rotate": true,
+        "change_slides_speed": 5,
+        "show_text_below": true,
+        "accessibility_info": ""
+      }
+    },
+    "featured_collection": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Odporúčame",
+        "heading_size": "h2",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "collection": "mix-kolekcia",
+        "products_to_show": 6,
+        "columns_desktop": 5,
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "solid",
+        "enable_desktop_slider": true,
+        "color_scheme": "background-1",
+        "image_ratio": "adapt",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "enable_quick_add": false,
+        "columns_mobile": "2",
+        "swipe_on_mobile": true,
+        "padding_top": 32,
+        "padding_bottom": 64
+      }
+    },
+    "featured-collection-1": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Novinky",
+        "heading_size": "h2",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "collection": "koralkove-a-shamballa-naramky-z-mineralov-1",
+        "products_to_show": 10,
+        "columns_desktop": 5,
+        "full_width": false,
+        "show_view_all": false,
+        "view_all_style": "solid",
+        "enable_desktop_slider": false,
+        "color_scheme": "background-1",
+        "image_ratio": "adapt",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "enable_quick_add": false,
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 32,
+        "padding_bottom": 32
+      }
+    },
+    "featured-product": {
+      "type": "featured-product",
+      "blocks": {
+        "vendor": {
+          "type": "text",
+          "settings": {
+            "text": "{{ section.settings.product.vendor }}",
+            "text_style": "body"
+          }
+        },
+        "title": {
+          "type": "title",
+          "settings": {
+            "heading_size": "h1"
+          }
+        },
+        "text-subtitle": {
+          "type": "text",
+          "settings": {
+            "text": "{{ section.settings.product.metafields.descriptors.subtitle.value }}",
+            "text_style": "body"
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "variant-picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button"
+          }
+        },
+        "quantity-selector": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "buy_button": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": false
+          }
+        }
+      },
+      "block_order": [
+        "vendor",
+        "title",
+        "text-subtitle",
+        "price",
+        "variant-picker",
+        "quantity-selector",
+        "buy_button"
+      ],
+      "settings": {
+        "product": "pleteny-snurkovy-naramok-s-vlastnym-textom-kocky",
+        "color_scheme": "background-1",
+        "secondary_background": false,
+        "hide_variants": false,
+        "enable_video_looping": false,
+        "padding_top": 48,
+        "padding_bottom": 44
+      }
+    },
+    "multicolumn": {
+      "type": "multicolumn",
+      "blocks": {
+        "column-1": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/talented-girl-is-sitting-table-with-her-cat-beaded-necklace-it_613910-18346_1ba1ff17-9b86-4767-865b-3c099d8e29ce.webp",
+            "title": "Sú náramky vyrábané ručne?",
+            "text": "<p>Áno, všetky naše náramky sú tzn. hand-made, čo znamená, že sme na každý jeden osobne dohliadli aby ste sa mohli tešiť z kvalitného výrobku.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column-2": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/ocean-water-swimming-underwater.webp",
+            "title": "Môžem sa s náramkom kúpať?",
+            "text": "<p>Neodporúčame to. Hoci sú náramky vyrobené z pevných materiálov, časté vystavenie vode môže spôsobiť zmenu farby alebo tvaru.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column-3": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/home-made-bead-jewelry-making-as-a-hobby-183757412-59b00c780d327a0011f10dd5.webp",
+            "title": "Robíte aj opravy náramkov?",
+            "text": "<p>Áno, poskytujeme aj služby opráv poškodených náramkov. K tejto službe pristupujeme individuálne po našej dohode cez email.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "column-1",
+        "column-2",
+        "column-3"
+      ],
+      "settings": {
+        "title": "Najčastejšie otázky - FAQ",
+        "heading_size": "h2",
+        "image_width": "full",
+        "image_ratio": "square",
+        "columns_desktop": 3,
+        "column_alignment": "left",
+        "background_style": "none",
+        "button_label": "",
+        "button_link": "",
+        "color_scheme": "background-1",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 32,
+        "padding_bottom": 32
+      }
+    },
+    "slideshow": {
+      "type": "slideshow",
+      "blocks": {
+        "slide": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/happy-smiling-woman-is-working-beads-jewellery-her-own-workplace.jpg",
+            "heading": "Každému vášmu náramku sa pri výrobe zvlášť venujeme",
+            "heading_size": "h2",
+            "subheading": "",
+            "button_label": "",
+            "link": "",
+            "button_style_secondary": false,
+            "box_align": "middle-center",
+            "show_text_box": false,
+            "text_alignment": "center",
+            "image_overlay_opacity": 50,
+            "color_scheme": "background-1",
+            "text_alignment_mobile": "center"
+          }
+        }
+      },
+      "block_order": [
+        "slide"
+      ],
+      "settings": {
+        "layout": "full_bleed",
+        "slide_height": "small",
+        "slider_visual": "counter",
+        "auto_rotate": false,
+        "change_slides_speed": 5,
+        "show_text_below": false,
+        "accessibility_info": "Slideshow o nás"
+      }
+    },
+    "image-with-text-1": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Náramky pre páry",
+            "heading_size": "h1"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Na výber máme desiatky druhov náramkov pre zamilovaných</p>",
+            "text_style": "body"
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "text"
+      ],
+      "settings": {
+        "image": "shopify://shop_images/chinh-le-duc-bjjNOEHFR_g-unsplash.webp",
+        "height": "small",
+        "desktop_image_width": "small",
+        "layout": "text_first",
+        "desktop_content_position": "middle",
+        "desktop_content_alignment": "center",
+        "content_layout": "no-overlap",
+        "color_scheme": "accent-2",
+        "mobile_content_alignment": "left",
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    }
+  },
+  "order": [
+    "1663081673cb4eb233",
+    "dbe69dfa-53ff-440e-a88e-9b7d2acc32f5",
+    "16630880178a88a5a4",
+    "featured_collection",
+    "featured-collection-1",
+    "featured-product",
+    "multicolumn",
+    "slideshow",
+    "image-with-text-1"
+  ]
+}

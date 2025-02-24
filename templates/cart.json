@@ -1,0 +1,104 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "cart-items": {
+      "type": "main-cart-items",
+      "settings": {
+        "padding_top": 32,
+        "padding_bottom": 32
+      }
+    },
+    "64fb5c72-289a-46ec-88e4-33390db43c76": {
+      "type": "rich-text",
+      "blocks": {
+        "template--15357352935563__64fb5c72-289a-46ec-88e4-33390db43c76-16759697554096c0c7-0": {
+          "type": "heading",
+          "settings": {
+            "heading": "<p><strong>Zľavový kupón v ďalšom kroku objednávky. </strong></p>",
+            "heading_size": "h1"
+          }
+        }
+      },
+      "block_order": [
+        "template--15357352935563__64fb5c72-289a-46ec-88e4-33390db43c76-16759697554096c0c7-0"
+      ],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "accent-1",
+        "full_width": true,
+        "padding_top": 12,
+        "padding_bottom": 24
+      }
+    },
+    "16a89aff-50ed-4ab3-b359-a0a44f2c8229": {
+      "type": "rich-text",
+      "disabled": true,
+      "blocks": {
+        "template--15357352935563__16a89aff-50ed-4ab3-b359-a0a44f2c8229-16762046069a7c6c97-0": {
+          "type": "heading",
+          "settings": {
+            "heading": "<p><strong>Pre zľavu 10% použi kód DIARA10</strong></p>",
+            "heading_size": "h2"
+          }
+        }
+      },
+      "block_order": [
+        "template--15357352935563__16a89aff-50ed-4ab3-b359-a0a44f2c8229-16762046069a7c6c97-0"
+      ],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "background-2",
+        "full_width": true,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "cart-footer": {
+      "type": "main-cart-footer",
+      "blocks": {
+        "subtotal": {
+          "type": "subtotal",
+          "settings": {}
+        },
+        "3375b5b2-0fe3-40c7-bc74-1d07a7506d0d": {
+          "type": "shopify://apps/vitals-all-in-one-marketing/blocks/cart-reserved/aeb48102-2a5a-4f39-bdbd-d8d49f4e20b8",
+          "settings": {}
+        },
+        "b92280d3-b976-44bb-8fd0-e070fa5dad69": {
+          "type": "shopify://apps/vitals-all-in-one-marketing/blocks/payment-logos/aeb48102-2a5a-4f39-bdbd-d8d49f4e20b8",
+          "settings": {}
+        },
+        "buttons": {
+          "type": "buttons",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "subtotal",
+        "3375b5b2-0fe3-40c7-bc74-1d07a7506d0d",
+        "b92280d3-b976-44bb-8fd0-e070fa5dad69",
+        "buttons"
+      ],
+      "custom_css": [
+        ".cart__checkout-button {background-color: blue; font-size: 140%; font-weight: bold;}"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "cart-items",
+    "64fb5c72-289a-46ec-88e4-33390db43c76",
+    "16a89aff-50ed-4ab3-b359-a0a44f2c8229",
+    "cart-footer"
+  ]
+}

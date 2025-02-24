@@ -1,0 +1,50 @@
+
+{%- assign img_url = 'https://sb.secomapp.com/images/artwork/sb_logo_69823.png' -%}
+{%- assign c_s_url = 'https://DIARA.sk,https://www.instagram.com/diara.sk/,https://www.facebook.com/diarask1' -%}
+{%- assign c_br_name = 'DIARA' -%}
+
+<!-- seo-booster-json-ld-store -->
+
+<!-- seo-booster-website -->
+<script type="application/ld+json">
+{
+   "@context": "http://schema.org",
+   "@type": "WebSite",
+   "url": "https://{{ shop.domain }}/",
+   "potentialAction": {
+     "@type": "SearchAction",
+     "target": "https://{{ shop.domain }}/search?q={search_term_string}",
+     "query-input": "required name=search_term_string"
+   }
+}
+</script>
+<!-- end-seo-booster-website -->
+
+<!-- seo-booster-organization -->
+<script type="application/ld+json">
+{
+	"@context": "http://schema.org",
+	"@type": "Organization",
+	{%- unless img_url == blank -%}
+    "name": "{{ c_br_name }}",
+    {%- endunless -%}
+	"url": "https://{{ shop.domain }}"
+    {%- unless img_url == blank -%}
+	,"logo": "{{ img_url | remove: "\" }}"
+  	{%- endunless -%}
+
+    {%- unless c_s_url == blank -%}
+    {% assign items = c_s_url | split: "," %}
+
+	,"sameAs" : [
+	{% for item in items %}
+		"{{ item }}"{% if forloop.last <> true %},{% endif %}
+	{% endfor %}
+	]
+	{%- endunless -%}
+}
+</script>
+<!-- end-seo-booster-organization -->
+
+
+<!-- End - seo-booster-json-ld-store -->
