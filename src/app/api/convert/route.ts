@@ -33,10 +33,19 @@ export async function POST(request: NextRequest) {
     const formData = await request.formData();
     const file = formData.get('file') as File | null;
     const format = formData.get('format') as string | null;
+    const quality = formData.get('quality') as string | null;
     
     if (!file || !format) {
       return NextResponse.json(
         { error: 'File and format are required' },
+        { status: 400 }
+      );
+    }
+
+    const qualityValue = quality ? parseInt(quality, 10) : 80;
+    if (isNaN(qualityValue) || qualityValue < 1 || qualityValue > 100) {
+      return NextResponse.json(
+        { error: 'Quality must be a number between 1 and 100' },
         { status: 400 }
       );
     }
@@ -61,7 +70,7 @@ export async function POST(request: NextRequest) {
     
     const options: ConversionOptions = {
       format: format,
-      quality: 80
+      quality: qualityValue
     };
 
     try {

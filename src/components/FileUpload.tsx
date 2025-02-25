@@ -5,10 +5,14 @@ import { SupportedFormat, isFormatSupported, getFormatFromMimeType, supportedFor
 import toast from 'react-hot-toast';
 import { useSession } from 'next-auth/react';
 import LoadingSpinner from './LoadingSpinner';
+import ConversionProgress from './ConversionProgress';
 
 interface FileUploadProps {
-  onFileSelect: (file: File, format: SupportedFormat) => Promise<void>;
+  onFileSelect: (files: FileWithPreview[], format: SupportedFormat) => Promise<void>;
   isConverting?: boolean;
+  selectedFiles: FileWithPreview[];
+  onFilesChange: (files: FileWithPreview[]) => void;
+  currentFileIndex: number;
 }
 
 type ErrorMessage = string | null;
@@ -20,9 +24,8 @@ interface FileWithPreview {
   format: SupportedFormat;
 }
 
-export default function FileUpload({ onFileSelect, isConverting = false }: FileUploadProps) {
+export default function FileUpload({ onFileSelect, isConverting = false, selectedFiles, onFilesChange, currentFileIndex }: FileUploadProps) {
   const [dragActive, setDragActive] = useState(false);
-  const [selectedFiles, setSelectedFiles] = useState<FileWithPreview[]>([]);
   const [selectedFormat, setSelectedFormat] = useState<SupportedFormat>('jpeg');
   const [error, setError] = useState<ErrorMessage>(null);
   const [hasMixedFormats, setHasMixedFormats] = useState(false);
@@ -53,7 +56,7 @@ export default function FileUpload({ onFileSelect, isConverting = false }: FileU
     selectedFiles.forEach(file => {
       URL.revokeObjectURL(file.preview);
     });
-    setSelectedFiles([]);
+    onFilesChange([]);
     setError(null);
     setHasMixedFormats(false);
     setIsProcessing(false);
@@ -63,17 +66,15 @@ export default function FileUpload({ onFileSelect, isConverting = false }: FileU
   };
 
   const removeFile = (index: number) => {
-    setSelectedFiles(prev => {
-      const newFiles = [...prev];
-      URL.revokeObjectURL(newFiles[index].preview);
-      newFiles.splice(index, 1);
-      
-      // Check for mixed formats in remaining files
-      const formats = new Set(newFiles.map(f => f.format));
-      setHasMixedFormats(formats.size > 1);
-      
-      return newFiles;
-    });
+    const newFiles = [...selectedFiles];
+    URL.revokeObjectURL(newFiles[index].preview);
+    newFiles.splice(index, 1);
+    
+    // Check for mixed formats in remaining files
+    const formats = new Set(newFiles.map(f => f.format));
+    setHasMixedFormats(formats.size > 1);
+    
+    onFilesChange(newFiles);
   };
 
   const handleDrag = useCallback((e: React.DragEvent) => {
@@ -127,12 +128,10 @@ export default function FileUpload({ onFileSelect, isConverting = false }: FileU
       return;
     }
 
-    setSelectedFiles(prev => {
-      const allFiles = [...prev, ...newFiles];
-      const formats = new Set(allFiles.map(f => f.format));
-      setHasMixedFormats(formats.size > 1);
-      return allFiles;
-    });
+    const allFiles = [...selectedFiles, ...newFiles];
+    const formats = new Set(allFiles.map(f => f.format));
+    setHasMixedFormats(formats.size > 1);
+    onFilesChange(allFiles);
     setIsProcessing(false);
   };
 
@@ -182,9 +181,7 @@ export default function FileUpload({ onFileSelect, isConverting = false }: FileU
     }
 
     try {
-      for (const { file } of selectedFiles) {
-        await onFileSelect(file, selectedFormat);
-      }
+      await onFileSelect(selectedFiles, selectedFormat);
       clearFiles();
     } catch (error) {
       console.error('Conversion error:', error);
@@ -258,7 +255,7 @@ export default function FileUpload({ onFileSelect, isConverting = false }: FileU
           {selectedFiles.length > 0 ? (
             <div className="space-y-6">
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                {selectedFiles.map((file, index) => (
+                {selectedFiles.map((file: FileWithPreview, index: number) => (
                   <div key={index} className="relative group">
                     <div className="relative w-full aspect-square rounded-lg overflow-hidden shadow-medium">
                       <img
@@ -369,22 +366,30 @@ export default function FileUpload({ onFileSelect, isConverting = false }: FileU
             </div>
           </div>
           
-          <button
-            onClick={handleConvert}
-            disabled={isConverting || isProcessing || selectedFiles.length === 0}
-            className={`btn-primary w-full ${
-              isConverting || isProcessing ? 'opacity-50 cursor-not-allowed' : ''
-            }`}
-          >
-            {isConverting ? (
-              <span className="inline-flex items-center">
-                <LoadingSpinner size="sm" className="mr-2" />
-                Converting...
-              </span>
-            ) : (
-              `Convert ${selectedFiles.length > 1 ? `${selectedFiles.length} Images` : 'Image'}`
-            )}
-          </button>
+          <div className="space-y-4">
+            <button
+              onClick={handleConvert}
+              disabled={isConverting || isProcessing || selectedFiles.length === 0}
+              className={`btn-primary w-full ${
+                isConverting || isProcessing ? 'opacity-50 cursor-not-allowed' : ''
+              }`}
+            >
+              {isConverting ? (
+                <span className="inline-flex items-center">
+                  <LoadingSpinner size="sm" className="mr-2" />
+                  Converting...
+                </span>
+              ) : (
+                `Convert ${selectedFiles.length > 1 ? `${selectedFiles.length} Images` : 'Image'}`
+              )}
+            </button>
+
+            <ConversionProgress
+              totalFiles={selectedFiles.length}
+              currentFile={currentFileIndex + 1}
+              isConverting={isConverting}
+            />
+          </div>
         </div>
       )}
     </div>

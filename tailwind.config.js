@@ -24,12 +24,12 @@ module.exports = {
         background: {
           light: '#ffffff',
           DEFAULT: '#faf9f8',
-          dark: '#1a1a1a',
+          dark: '#111111',
         },
         surface: {
           light: '#ffffff',
           DEFAULT: '#ffffff',
-          dark: '#242424',
+          dark: '#1a1a1a',
         },
         'dark-grey': {
           100: '#f5f5f5',
@@ -38,9 +38,9 @@ module.exports = {
           400: '#a3a3a3',
           500: '#737373',
           600: '#525252',
-          700: '#404040',
-          800: '#262626',
-          900: '#171717',
+          700: '#333333',
+          800: '#1f1f1f',
+          900: '#111111',
         }
       },
       fontFamily: {
