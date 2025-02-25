@@ -10,37 +10,37 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '#b85c44',
+        primary: {
+          light: '#FF7A5C',
+          DEFAULT: '#E85D3D',
+          dark: '#D14B2B',
+        },
         accent: {
-          light: '#c97a65',
-          DEFAULT: '#b85c44',
-          dark: '#964a37',
+          light: '#6366F1',
+          DEFAULT: '#4F46E5',
+          dark: '#4338CA',
         },
         content: {
-          light: '#4a4a4a',
-          DEFAULT: '#2d2d2d',
-          dark: '#ffffff',
+          light: '#6B7280',
+          DEFAULT: '#1F2937',
+          dark: '#F9FAFB',
         },
         background: {
-          light: '#ffffff',
-          DEFAULT: '#faf9f8',
-          dark: '#111111',
-        },
-        surface: {
-          light: '#ffffff',
-          DEFAULT: '#ffffff',
-          dark: '#1a1a1a',
+          light: '#F9FAFB',
+          DEFAULT: '#FFFFFF',
+          dark: '#111827',
         },
         'dark-grey': {
-          100: '#f5f5f5',
-          200: '#e5e5e5',
-          300: '#d4d4d4',
-          400: '#a3a3a3',
-          500: '#737373',
-          600: '#525252',
-          700: '#333333',
-          800: '#1f1f1f',
-          900: '#111111',
+          50: '#F9FAFB',
+          100: '#F3F4F6',
+          200: '#E5E7EB',
+          300: '#D1D5DB',
+          400: '#9CA3AF',
+          500: '#6B7280',
+          600: '#4B5563',
+          700: '#374151',
+          800: '#1F2937',
+          900: '#111827',
         }
       },
       fontFamily: {
@@ -53,6 +53,7 @@ module.exports = {
       borderRadius: {
         'lg': '0.625rem',
         'xl': '1rem',
+        '2xl': '1.25rem',
       },
       transitionDuration: {
         '250': '250ms',
@@ -60,6 +61,8 @@ module.exports = {
       boxShadow: {
         'soft': '0 2px 8px rgba(0, 0, 0, 0.05)',
         'medium': '0 4px 12px rgba(0, 0, 0, 0.08)',
+        'lg': '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
+        'xl': '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)',
         'dark-soft': '0 2px 8px rgba(0, 0, 0, 0.2)',
         'dark-medium': '0 4px 12px rgba(0, 0, 0, 0.3)',
       },
@@ -71,7 +74,13 @@ module.exports = {
           md: '768px',
           lg: '1024px',
           xl: '1280px',
+          '2xl': '1536px',
         },
+      },
+      backgroundImage: {
+        'gradient-primary': 'linear-gradient(135deg, #FF7A5C 0%, #E85D3D 100%)',
+        'gradient-accent': 'linear-gradient(135deg, #6366F1 0%, #4F46E5 100%)',
+        'gradient-dark': 'linear-gradient(135deg, #1F2937 0%, #111827 100%)',
       },
     },
   },
@@ -87,6 +96,7 @@ module.exports = {
       textColor: ['dark', 'dark:hover'],
       borderColor: ['dark', 'dark:hover'],
       opacity: ['dark'],
+      backgroundImage: ['hover', 'dark'],
     },
   },
 }

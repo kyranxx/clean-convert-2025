@@ -6,13 +6,16 @@ import toast from 'react-hot-toast';
 import { useSession } from 'next-auth/react';
 import LoadingSpinner from './LoadingSpinner';
 import ConversionProgress from './ConversionProgress';
+import ReCaptcha from './ReCaptcha';
+import StatusBadge from './StatusBadge';
+import QueueStatus from './QueueStatus';
+import { conversionQueue } from '@/lib/conversionQueue';
+import FormatButton from './FormatButton';
 
 interface FileUploadProps {
   onFileSelect: (files: FileWithPreview[], format: SupportedFormat) => Promise<void>;
-  isConverting?: boolean;
   selectedFiles: FileWithPreview[];
   onFilesChange: (files: FileWithPreview[]) => void;
-  currentFileIndex: number;
 }
 
 type ErrorMessage = string | null;
@@ -24,7 +27,9 @@ interface FileWithPreview {
   format: SupportedFormat;
 }
 
-export default function FileUpload({ onFileSelect, isConverting = false, selectedFiles, onFilesChange, currentFileIndex }: FileUploadProps) {
+export default function FileUpload({ onFileSelect, selectedFiles, onFilesChange }: FileUploadProps) {
+  const [isConverting, setIsConverting] = useState(false);
+  const [currentFileIndex, setCurrentFileIndex] = useState(0);
   const [dragActive, setDragActive] = useState(false);
   const [selectedFormat, setSelectedFormat] = useState<SupportedFormat>('jpeg');
   const [error, setError] = useState<ErrorMessage>(null);
@@ -104,7 +109,10 @@ export default function FileUpload({ onFileSelect, isConverting = false, selecte
     setIsProcessing(true);
     const newFiles: FileWithPreview[] = [];
     
-    Array.from(files).forEach(file => {
+    // Only process the first file for free tier
+    const filesToProcess = !session?.user ? [files[0]] : Array.from(files);
+    
+    filesToProcess.forEach(file => {
       if (validateFile(file)) {
         const format = getFormatFromMimeType(file.type) || 'jpeg';
         newFiles.push({
@@ -116,14 +124,14 @@ export default function FileUpload({ onFileSelect, isConverting = false, selecte
       }
     });
 
-    if (!session?.user && newFiles.length > 1) {
-      setError('Please sign in to convert multiple images');
+    if (!session?.user && files.length > 1) {
+      setError('Free tier allows only one image. Sign in to convert multiple images.');
       setIsProcessing(false);
       return;
     }
 
-    if (session?.user && session.user.credits < newFiles.length) {
-      setError(`Insufficient credits. You need ${newFiles.length} credits to convert these images.`);
+    if (session?.user && session.user.credits < files.length) {
+      setError(`Insufficient credits. You need ${files.length} credits to convert these images.`);
       setIsProcessing(false);
       return;
     }
@@ -167,11 +175,50 @@ export default function FileUpload({ onFileSelect, isConverting = false, selecte
     }
   };
 
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
+  const [showRecaptcha, setShowRecaptcha] = useState(false);
+  const [hasUsedFreeTier, setHasUsedFreeTier] = useState(false);
+
+  // Check if user has already used free tier
+  useEffect(() => {
+    if (!session?.user) {
+      fetch('/api/free-tier')
+        .then(res => res.json())
+        .then(data => {
+          setHasUsedFreeTier(data.hasUsedFreeTier);
+        })
+        .catch(error => {
+          console.error('Error checking free tier usage:', error);
+        });
+    }
+  }, [session?.user]);
+
+  // Set up queue event handlers
+  useEffect(() => {
+    conversionQueue.onProgress((current, total) => {
+      // Update progress
+      setCurrentFileIndex(current - 1);
+    });
+
+    conversionQueue.onComplete(() => {
+      setIsConverting(false);
+      clearFiles();
+      setShowRecaptcha(false);
+      setRecaptchaToken(null);
+      toast.success('All conversions completed successfully');
+    });
+
+    conversionQueue.onError((error) => {
+      console.error('Conversion error:', error);
+      toast.error('Some conversions failed. Check the status below.');
+    });
+  }, []);
+
   const handleConvert = useCallback(async () => {
     if (selectedFiles.length === 0 || !isFormatSupported(selectedFormat)) return;
     
     if (!session?.user && selectedFiles.length > 1) {
-      toast.error('Please sign in to convert multiple images');
+      toast.error('Free tier allows only one image. Sign in to convert multiple images.');
       return;
     }
 
@@ -180,12 +227,32 @@ export default function FileUpload({ onFileSelect, isConverting = false, selecte
       return;
     }
 
+    // Check free tier usage for non-logged-in users
+    if (!session?.user) {
+      if (hasUsedFreeTier) {
+        toast.error('Free tier already used. Please sign in to continue.');
+        return;
+      }
+      setShowRecaptcha(true);
+      return;
+    }
+
     try {
-      await onFileSelect(selectedFiles, selectedFormat);
-      clearFiles();
+      setIsConverting(true);
+      
+      // Add files to conversion queue
+      const conversionItems = selectedFiles.map(file => ({
+        file: file.file,
+        fromFormat: file.format,
+        toFormat: selectedFormat,
+        userId: session?.user?.id,
+      }));
+
+      conversionQueue.addToQueue(conversionItems);
     } catch (error) {
-      console.error('Conversion error:', error);
-      toast.error('An error occurred during conversion');
+      console.error('Error adding to queue:', error);
+      toast.error('Failed to start conversion');
+      setIsConverting(false);
     }
   }, [selectedFiles, selectedFormat, onFileSelect, session?.user]);
 
@@ -198,28 +265,45 @@ export default function FileUpload({ onFileSelect, isConverting = false, selecte
 
   return (
     <div className="w-full max-w-4xl mx-auto space-y-6 p-6">
-      <div className="text-center space-y-2">
-        <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent/10 dark:bg-accent-dark/10 rounded-full">
-          <svg className="w-5 h-5 text-accent dark:text-accent-light" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-          </svg>
-          <p className="text-sm font-medium text-accent dark:text-accent-light">
-            Free Conversion - No Credit Card Required
-          </p>
-        </div>
-        <div className="flex items-center justify-center gap-6 text-sm text-content-light dark:text-content-dark/60">
-          <div className="flex items-center gap-2">
+      <div className="text-center space-y-6">
+        <h1 className="text-4xl font-bold mb-4">Convert One Image Free Forever</h1>
+        <p className="text-xl text-content-light/80 mb-6">Transform your images instantly with our secure converter</p>
+        
+        <div className="flex flex-wrap justify-center gap-4">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent/10 dark:bg-accent-dark/10 rounded-full">
             <svg className="w-5 h-5 text-accent/70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16l2.879-2.879m0 0a3 3 0 104.243-4.242 3 3 0 00-4.243 4.242zM21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            <span>Supports All Major Formats</span>
+            <span className="text-sm font-medium">All Major Formats</span>
           </div>
-          <div className="flex items-center gap-2">
+          
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent/10 dark:bg-accent-dark/10 rounded-full">
             <svg className="w-5 h-5 text-accent/70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
             </svg>
-            <span>100% Private & Secure</span>
+            <span className="text-sm font-medium">100% Private & Secure</span>
           </div>
+          
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent/10 dark:bg-accent-dark/10 rounded-full">
+            <svg className="w-5 h-5 text-accent/70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            </svg>
+            <span className="text-sm font-medium">No Registration Required</span>
+          </div>
+        </div>
+        
+        <div className="flex flex-col items-center gap-3 mt-4">
+          {!session?.user && (
+            <StatusBadge
+              status={hasUsedFreeTier ? 'warning' : 'info'}
+              text={hasUsedFreeTier ? 'Free conversion already used' : 'One free conversion available'}
+            />
+          )}
+          <StatusBadge
+            status="info"
+            text="Additional conversions require registration"
+            className="text-xs"
+          />
         </div>
       </div>
 
@@ -242,7 +326,7 @@ export default function FileUpload({ onFileSelect, isConverting = false, selecte
           onChange={handleFileInput}
           disabled={isConverting || isProcessing}
           id="file-upload"
-          multiple
+          multiple={!!session?.user}
         />
         
         {isProcessing ? (
@@ -330,12 +414,11 @@ export default function FileUpload({ onFileSelect, isConverting = false, selecte
       </div>
 
       {error && (
-        <div className="bg-red-50/50 dark:bg-red-900/10 border border-red-100 dark:border-red-900/20 rounded-lg p-4 flex items-start gap-3">
-          <svg className="w-5 h-5 text-red-500 dark:text-red-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-          <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
-        </div>
+        <StatusBadge
+          status="error"
+          text={error}
+          className="w-full justify-center py-3"
+        />
       )}
 
       {selectedFiles.length > 0 && (
@@ -344,51 +427,115 @@ export default function FileUpload({ onFileSelect, isConverting = false, selecte
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-lg font-medium text-content">Output Format</h3>
               {hasMixedFormats && (
-                <p className="text-sm text-accent dark:text-accent-light flex items-center gap-2">
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  Mixed formats - All images will be converted to the selected format
-                </p>
+                <StatusBadge
+                  status="warning"
+                  text="Mixed formats - All images will be converted to the selected format"
+                  className="text-xs"
+                />
               )}
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               {availableFormats.map((format) => (
-                <button
+                <FormatButton
                   key={format}
+                  format={format}
+                  isSelected={selectedFormat === format}
                   onClick={() => handleFormatChange(format)}
-                  className={`format-btn ${selectedFormat === format ? 'active' : ''}`}
                   disabled={isConverting || isProcessing}
-                >
-                  {format.toUpperCase()}
-                </button>
+                />
               ))}
             </div>
           </div>
           
           <div className="space-y-4">
-            <button
-              onClick={handleConvert}
-              disabled={isConverting || isProcessing || selectedFiles.length === 0}
-              className={`btn-primary w-full ${
-                isConverting || isProcessing ? 'opacity-50 cursor-not-allowed' : ''
-              }`}
-            >
-              {isConverting ? (
-                <span className="inline-flex items-center">
-                  <LoadingSpinner size="sm" className="mr-2" />
-                  Converting...
-                </span>
-              ) : (
-                `Convert ${selectedFiles.length > 1 ? `${selectedFiles.length} Images` : 'Image'}`
-              )}
-            </button>
+            <div className="space-y-4">
+              <button
+                onClick={handleConvert}
+                disabled={isConverting || isProcessing || selectedFiles.length === 0}
+                className={`btn-primary w-full ${
+                  isConverting || isProcessing ? 'opacity-50 cursor-not-allowed' : ''
+                }`}
+              >
+                {isConverting ? (
+                  <span className="inline-flex items-center">
+                    <LoadingSpinner size="sm" className="mr-2" />
+                    Converting...
+                  </span>
+                ) : (
+                  `Convert ${selectedFiles.length > 1 ? `${selectedFiles.length} Images` : 'Image'}`
+                )}
+              </button>
 
-            <ConversionProgress
-              totalFiles={selectedFiles.length}
-              currentFile={currentFileIndex + 1}
-              isConverting={isConverting}
-            />
+              {showRecaptcha && !session?.user && (
+                <ReCaptcha
+                  onVerify={async (token) => {
+                    setRecaptchaToken(token);
+                    try {
+                      // Record free tier usage
+                      const response = await fetch('/api/free-tier', {
+                        method: 'POST',
+                        headers: {
+                          'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                          recaptchaScore: parseFloat(token),
+                        }),
+                      });
+
+                      if (!response.ok) {
+                        const data = await response.json();
+                        toast.error(data.error || 'Failed to process free tier usage');
+                        return;
+                      }
+
+                      const { id } = await response.json();
+
+                      // Proceed with conversion
+                      await onFileSelect(selectedFiles, selectedFormat);
+                      
+                      // Update usage record with conversion ID
+                      await fetch('/api/free-tier', {
+                        method: 'PUT',
+                        headers: {
+                          'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                          id,
+                          conversionId: 'pending', // You might want to get this from onFileSelect
+                        }),
+                      });
+
+                      clearFiles();
+                      setShowRecaptcha(false);
+                      setRecaptchaToken(null);
+                      setHasUsedFreeTier(true);
+                    } catch (error) {
+                      console.error('Conversion error:', error);
+                      toast.error('An error occurred during conversion');
+                    }
+                  }}
+                />
+              )}
+            </div>
+
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <ConversionProgress
+                  totalFiles={selectedFiles.length}
+                  currentFile={currentFileIndex + 1}
+                  isConverting={isConverting}
+                />
+                {isConverting && (
+                  <StatusBadge
+                    status="info"
+                    text={`Converting ${currentFileIndex + 1} of ${selectedFiles.length}`}
+                    className="ml-4"
+                  />
+                )}
+              </div>
+              
+              <QueueStatus className="mt-4" />
+            </div>
           </div>
         </div>
       )}

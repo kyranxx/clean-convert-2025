@@ -1,59 +1,32 @@
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-import './globals.css'
-import { Providers } from './providers'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/lib/auth'
-import NavBar from '@/components/NavBar'
-import Footer from '@/components/Footer'
-import { ToastContainer } from '@/components/ToastProgress'
+'use client';
 
-const inter = Inter({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-inter',
-})
+import { Inter } from 'next/font/google';
+import { SessionProvider } from 'next-auth/react';
+import { Toaster } from 'react-hot-toast';
+import { ThemeProvider } from '@/components/ThemeProvider';
+import Navigation from '@/components/Navigation';
+import '@/styles/globals.css';
 
-export const viewport = {
-  width: 'device-width',
-  initialScale: 1,
-  maximumScale: 5,
-  minimumScale: 1,
-  userScalable: true,
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
-    { media: '(prefers-color-scheme: dark)', color: '#0f172a' }
-  ]
-}
+const inter = Inter({ subsets: ['latin'] });
 
-export const metadata: Metadata = {
-  title: 'Clean Convert - Modern Image Conversion',
-  description: 'Transform your images with precision and simplicity. Support for JPEG, PNG, WebP, GIF, TIFF, AVIF, and HEIF formats.',
-  keywords: ['image conversion', 'file format', 'image processing', 'web tools'],
-  authors: [{ name: 'Clean Convert Team' }],
-}
-
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
-  const session = await getServerSession(authOptions);
-  
   return (
-    <html lang="en" className={inter.variable}>
-      <body className={`${inter.className} antialiased min-h-screen bg-gradient-light dark:bg-gradient-dark transition-colors duration-250 touch-manipulation overscroll-none`}>
-        <Providers session={session}>
-          <div className="flex flex-col min-h-screen">
-            <NavBar />
-            <main className="flex-grow">
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${inter.className} bg-background dark:bg-background-dark text-content dark:text-content-dark min-h-screen`}>
+        <SessionProvider>
+          <ThemeProvider>
+            <Toaster position="top-right" />
+            <Navigation />
+            <main className="pt-16">
               {children}
             </main>
-            <Footer />
-          </div>
-          <ToastContainer />
-        </Providers>
+          </ThemeProvider>
+        </SessionProvider>
       </body>
     </html>
-  )
+  );
 }

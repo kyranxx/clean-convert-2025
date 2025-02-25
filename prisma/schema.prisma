@@ -63,3 +63,15 @@ model Conversion {
   createdAt     DateTime         @default(now())
   completedAt   DateTime?
 }
+
+model FreeTierUsage {
+  id            String    @id @default(cuid())
+  ipAddress     String    // Hashed IP address for privacy
+  lastUsedAt    DateTime  @default(now())
+  conversionId  String?   // Optional reference to the conversion if we want to track it
+  recaptchaScore Float?   // Store reCAPTCHA score for fraud prevention
+  createdAt     DateTime  @default(now())
+
+  @@index([ipAddress])
+  @@index([lastUsedAt])
+}
