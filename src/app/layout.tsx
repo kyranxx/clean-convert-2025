@@ -17,7 +17,13 @@ const inter = Inter({
 export const viewport = {
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 1,
+  maximumScale: 5,
+  minimumScale: 1,
+  userScalable: true,
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
+    { media: '(prefers-color-scheme: dark)', color: '#0f172a' }
+  ]
 }
 
 export const metadata: Metadata = {
@@ -36,7 +42,7 @@ export default async function RootLayout({
   
   return (
     <html lang="en" className={inter.variable}>
-      <body className={`${inter.className} antialiased min-h-screen bg-gradient-light dark:bg-gradient-dark transition-colors duration-250`}>
+      <body className={`${inter.className} antialiased min-h-screen bg-gradient-light dark:bg-gradient-dark transition-colors duration-250 touch-manipulation overscroll-none`}>
         <Providers session={session}>
           <div className="flex flex-col min-h-screen">
             <NavBar />
