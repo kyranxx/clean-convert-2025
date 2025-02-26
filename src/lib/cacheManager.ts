@@ -43,6 +43,8 @@ class CacheManager {
   }
 
   private loadFromLocalStorage() {
+    if (typeof window === 'undefined') return;
+    
     try {
       const data = localStorage.getItem('conversionCache');
       if (data) {
@@ -59,6 +61,8 @@ class CacheManager {
   }
 
   private saveToLocalStorage() {
+    if (typeof window === 'undefined') return;
+    
     try {
       const data = {
         entries: Array.from(this.cache.entries()),

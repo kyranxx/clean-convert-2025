@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 250, 249, 248;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 17, 24, 39;
+    --background-end-rgb: 31, 41, 55;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+@layer base {
+  h1 {
+    @apply text-4xl font-bold md:text-5xl;
+  }
+  h2 {
+    @apply text-3xl font-bold md:text-4xl;
+  }
+  h3 {
+    @apply text-2xl font-bold md:text-3xl;
+  }
+  h4 {
+    @apply text-xl font-bold md:text-2xl;
+  }
+  h5 {
+    @apply text-lg font-bold md:text-xl;
+  }
+  h6 {
+    @apply text-base font-bold md:text-lg;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary hover:bg-primary-dark text-white font-medium rounded-xl transition-all duration-200 shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 px-4 py-2;
+  }
+  
+  .btn-secondary {
+    @apply border border-dark-grey-200 dark:border-dark-grey-700 hover:border-primary text-content-light hover:text-primary font-medium rounded-xl transition-all duration-200 hover:shadow-lg px-4 py-2;
+  }
+  
+  .card {
+    @apply bg-white dark:bg-dark-grey-800 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-200 p-6;
+  }
+  
+  .input {
+    @apply w-full px-4 py-2 bg-white dark:bg-dark-grey-800 border border-dark-grey-200 dark:border-dark-grey-700 focus:border-primary dark:focus:border-primary focus:ring-1 focus:ring-primary rounded-xl transition-all duration-200;
+  }
+}

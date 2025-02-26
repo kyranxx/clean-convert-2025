@@ -94,10 +94,8 @@ export default function Home() {
             <div className="bg-white/50 dark:bg-dark-grey-800/50 backdrop-blur-sm shadow-lg dark:shadow-dark-lg rounded-2xl border border-gray-100/50 dark:border-dark-grey-700/50">
               <FileUpload
                 onFileSelect={(files, format) => handleConversion(files, format, quality)}
-                isConverting={isConverting}
                 onFilesChange={setSelectedFiles}
                 selectedFiles={selectedFiles}
-                currentFileIndex={currentFileIndex}
               />
               {error && (
                 <div className="mx-6 mb-6 p-4 bg-red-50/50 dark:bg-red-900/10 text-red-600 dark:text-red-400 rounded-lg text-sm">
